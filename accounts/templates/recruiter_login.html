@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block user_content %}
+<h2>Recruiter Login</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Login</button>
+    {% if error_message %}
+        <p style="color:red;">{{ error_message }}</p>
+    {% endif %}
+</form>
+{% endblock user_content %}

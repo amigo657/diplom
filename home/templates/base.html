@@ -1,0 +1,41 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <title>Comport</title>
+    <link rel="shortcut icon" href="{% static 'assets/images/logo/favicon.png' %}" type="image/x-icon">
+
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="{% static 'css/animate-3.7.0.css' %}">
+    <link rel="stylesheet" href="{% static 'css/font-awesome-4.7.0.min.css' %}">
+    <link rel="stylesheet" href="{% static 'fonts/flat-icon/flaticon.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap-4.1.3.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/owl-carousel.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/nice-select.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    
+    {% include "base/header.html" %}
+    {% block home %}{% endblock home %}
+    {% block vacancy %}{% endblock vacancy %}
+    {% block about_us %}{% endblock about_us %}
+    {% block privilegy %}{% endblock privilegy %}
+    {% block contacts %}{% endblock contacts %}
+    {% block user_content %}
+    {% include "base/footer.html" %}
+    {% endblock user_content %}
+
+    <script src="{% static 'js/vendor/jquery-2.2.4.min.js' %}"></script>
+	<script src="{% static 'js/vendor/bootstrap-4.1.3.min.js' %}"></script>
+    <script src="{% static 'js/vendor/wow.min.js' %}"></script>
+    <script src="{% static 'js/vendor/owl-carousel.min.js' %}"></script>
+    <script src="{% static 'js/vendor/jquery.nice-select.min.js' %}"></script>
+    <script src="{% static 'js/vendor/ion.rangeSlider.js' %}"></script>
+    <script src="{% static 'js/main.js' %}"></script>
+</body>
+</html>
