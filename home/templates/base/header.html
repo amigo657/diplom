@@ -33,8 +33,12 @@
                                 </li>
                             {% else %}
                                 <li class="menu-btn">
-                                    <a href="/admin/" class="template-btn">{{user.username}}</a>
-                                    <a href="{% url 'log_out_page' %}">Log Out</a>
+                                    {% if user.is_superuser %}
+                                        <a href="/admin/" class="template-btn">{{user.username}}</a>
+                                    {% else %}
+                                        <a href="{% url 'profile_page' %}" class="template-btn">{{user.username}}</a>
+                                    {% endif %}
+                                        <a href="{% url 'log_out_page' %}">Log Out</a>
                                 </li>
                             {% endif %}
                         </ul>
