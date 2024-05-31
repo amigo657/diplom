@@ -32,3 +32,6 @@ class Recruiter(models.Model):
 
     def __str__(self):
         return self.username
+    
+    def get_company(self):
+        return self.company_id
