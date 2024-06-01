@@ -6,11 +6,41 @@ from django.core.exceptions import PermissionDenied
 from .models import Vacancy
 from companys.models import Company
 from .forms import VacancyForm
+from django.db.models import Q
 
-# Вывод списка вакансий
+# Функция для фильтрации вакансий
 def vacancy_list(request):
+    category = request.GET.get('category')
+    location = request.GET.get('location')
+    keyword = request.GET.get('keyword')
+    min_salary = request.GET.get('min_salary')
+    max_salary = request.GET.get('max_salary')
+
     vacancies = Vacancy.objects.all()
-    return render(request, 'vacancy_list.html', {'vacancies': vacancies})
+
+    if category:
+        vacancies = vacancies.filter(category=category)
+    
+    if location:
+        vacancies = vacancies.filter(city=location)
+    
+    if keyword:
+        vacancies = vacancies.filter(
+            Q(title__icontains=keyword) |
+            Q(company__name__icontains=keyword)
+        )
+    
+    if min_salary:
+        vacancies = vacancies.filter(salary__gte=min_salary)
+    
+    if max_salary:
+        vacancies = vacancies.filter(salary__lte=max_salary)
+    
+    context = {
+        'vacancies': vacancies,
+    }
+    
+    return render(request, 'vacancy_list.html', context)
 
 # Просмотр вакансии
 def vacancy_detail(request, vacancy_id):
