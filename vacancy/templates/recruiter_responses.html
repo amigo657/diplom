@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block vacancy %}
+<h2>Отклики на вакансии</h2>
+{% for response in responses %}
+    <div>
+        <h4>Вакансия: <a href="{% url 'vacancy_detail' response.vacancy.id %}">{{ response.vacancy.title }}</a></h4>
+        <p>Пользователь: {{ response.user.username }}</p>
+        <p>Дата отклика: {{ response.created_at }}</p>
+    </div>
+{% empty %}
+    <p>Откликов пока нет.</p>
+{% endfor %}
+<a href="{% url 'vacancy_list' %}">Назад к списку вакансий</a>
+{% endblock vacancy %}

@@ -3,9 +3,9 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseForbidden
 from django.core.exceptions import PermissionDenied
-from .models import Vacancy
+from .models import Vacancy, Response
 from companys.models import Company
-from .forms import VacancyForm
+from .forms import VacancyForm, ResponseForm
 from django.db.models import Q
 
 # Функция для фильтрации вакансий
@@ -45,13 +45,36 @@ def vacancy_list(request):
 # Просмотр вакансии
 def vacancy_detail(request, vacancy_id):
     vacancy = get_object_or_404(Vacancy, id=vacancy_id)
-    return render(request, 'vacancy_detail.html', {'vacancy': vacancy})
+    user_response = None
+    if request.user.is_authenticated:
+        user_response = Response.objects.filter(user=request.user, vacancy=vacancy).first()
+    context = {
+        'vacancy': vacancy,
+        'user_response': user_response,
+    }
+    return render(request, 'vacancy_detail.html', context)
 
 # Просмотр компании и её вакансий
 def company_detail(request, company_id):
     company = get_object_or_404(Company, id=company_id)
     vacancies = Vacancy.objects.filter(company=company)
     return render(request, 'company_detail.html', {'company': company, 'vacancies': vacancies})
+
+# Обработка откликов
+@login_required
+def apply_for_vacancy(request, vacancy_id):
+    vacancy = get_object_or_404(Vacancy, id=vacancy_id)
+    if request.method == 'POST':
+        form = ResponseForm(request.POST)
+        if form.is_valid():
+            response = form.save(commit=False)
+            response.user = request.user
+            response.save()
+            return redirect('vacancy_detail', vacancy_id=vacancy.id)
+    else:
+        form = ResponseForm(initial={'vacancy': vacancy})
+
+    return render(request, 'apply_for_vacancy.html', {'form': form, 'vacancy': vacancy})
 
 # Создание вакансии
 @login_required
@@ -84,3 +107,15 @@ def vacancy_delete(request, vacancy_id):
         return redirect('vacancy_list')
     print('work0')
     return render(request, 'vacancy_confirm_delete.html', {'vacancy': vacancy})
+
+# Отображение откликов
+@login_required
+def recruiter_responses(request):
+    if not request.user.is_recruiter:
+        return redirect('vacancy_list')
+    
+    if request.user.is_superuser:
+        responses = Response.objects.all()
+    else:
+        responses = Response.objects.filter(vacancy__recruiter=request.user)
+    return render(request, 'recruiter_responses.html', {'responses': responses})

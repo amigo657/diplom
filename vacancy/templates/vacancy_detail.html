@@ -8,7 +8,13 @@
 <p>Город: {{ vacancy.city }}</p>
 <p>Компания: <a href="{% url 'company_detail' vacancy.company.id %}">{{ vacancy.company.name }}</a></p>
 
-{% if request.user == vacancy.recruiter %}
+{% if request.user.is_authenticated and not request.user == vacancy.recruiter %}
+    {% if user_response %}
+      <p>Вы уже откликнулись на эту вакансию.</p>
+    {% else %}
+      <a href="{% url 'apply_for_vacancy' vacancy.id %}" class="template-btn">Откликнуться</a>
+    {% endif %}
+  {% elif request.user == vacancy.recruiter %}
     <button id="deleteBtn">Удалить вакансию</button>
 {% endif %}
 
