@@ -4,6 +4,7 @@ from .models import User, Recruiter
 from django.contrib.auth.forms import AuthenticationForm
 from companys.models import Company
 
+# формы для пользователей
 class CustomUserCreationForm(UserCreationForm):
     class Meta(UserCreationForm):
         model = User
@@ -20,12 +21,7 @@ class CustomAuthenticationForm(AuthenticationForm):
     password = forms.CharField(label='Password', strip=False, widget=forms.PasswordInput)
 
 
-
-
-
-
-
-
+# формы для рекрутера
 class RecruiterRegistrationForm(UserCreationForm):
     company_id = forms.ModelChoiceField(queryset=Company.objects.all(), label='Company')
 
@@ -46,3 +42,12 @@ class RecruiterRegistrationForm(UserCreationForm):
 class RecruiterAuthenticationForm(AuthenticationForm):
     username = forms.CharField(max_length=254, widget=forms.TextInput(attrs={'autofocus': True}))
     password = forms.CharField(label=("Password"), strip=False, widget=forms.PasswordInput)
+
+
+class ProfileForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = [
+            'first_name', 'last_name', 'email', 'projects', 'about_me',
+            'phone', 'country', 'city', 'photo'
+        ]

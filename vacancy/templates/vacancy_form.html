@@ -1,0 +1,12 @@
+<!-- vacancy/templates/vacancy/vacancy_form.html -->
+{% extends 'base.html' %}
+
+{% block vacancy %}
+<h2>Создание вакансии</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Создать</button>
+</form>
+<a href="{% url 'vacancy_list' %}">Отмена</a>
+{% endblock vacancy %}

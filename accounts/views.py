@@ -1,7 +1,7 @@
 from django.contrib.auth import login, authenticate, logout
-from django.contrib.auth.forms import AuthenticationForm
+# from django.contrib.auth.forms import AuthenticationForm
 from django.shortcuts import render, redirect
-from .forms import CustomUserCreationForm, CustomAuthenticationForm, RecruiterRegistrationForm, RecruiterAuthenticationForm
+from .forms import CustomUserCreationForm, CustomAuthenticationForm, RecruiterRegistrationForm, RecruiterAuthenticationForm, ProfileForm
 
 def register_user(request):
     if request.method == 'POST':
@@ -33,7 +33,24 @@ def login_user(request):
 
 
 def profile(request):
-    return render(request, 'profile.html')
+    user = request.user
+    if request.method == 'POST':
+        form = ProfileForm(request.POST, request.FILES, instance=user)
+        if form.is_valid():
+            form.save()
+            return redirect('profile_page')  # Обновите этот URL на URL страницы профиля
+    else:
+        form = ProfileForm(instance=user)
+
+    privilege_expiry = None
+    if user.privilege and user.status_time:
+        privilege_expiry = user.status_time + user.privilege.time  # Расчет срока действия привилегии
+
+    return render(request, 'profile.html', {
+        'form': form,
+        'privilege_expiry': privilege_expiry,
+    })
+
 
 def log_out(request):
     logout(request)

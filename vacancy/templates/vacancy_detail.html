@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block vacancy %}
+<h2>{{ vacancy.title }}</h2>
+<p>{{ vacancy.description }}</p>
+<p>Зарплата: {{ vacancy.salary }}</p>
+<p>Время работы: {{ vacancy.work_time }}</p>
+<p>Город: {{ vacancy.city }}</p>
+<p>Компания: <a href="{% url 'company_detail' vacancy.company.id %}">{{ vacancy.company.name }}</a></p>
+
+{% if request.user == vacancy.recruiter %}
+    <button id="deleteBtn">Удалить вакансию</button>
+{% endif %}
+
+<a href="{% url 'vacancy_list' %}">Назад к списку вакансий</a>
+
+<!-- Модальное окно для подтверждения удаления -->
+<div id="confirmModal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <p>Вы уверены, что хотите удалить вакансию "{{ vacancy.title }}"?</p>
+    <button id="confirmDeleteBtn">Удалить</button>
+  </div>
+</div>
+
+<form id="deleteForm" method="post" action="{% url 'vacancy_delete' vacancy.id %}" style="display: none;">
+  {% csrf_token %}
+  <input type="hidden" name="vacancy_id" value="{{ vacancy.id }}">
+</form>
+
+<script>
+// Открытие модального окна при нажатии на кнопку "Удалить вакансию"
+document.getElementById("deleteBtn").addEventListener("click", function() {
+  document.getElementById("confirmModal").style.display = "block";
+});
+
+// Закрытие модального окна при нажатии на кнопку "Закрыть" или вне окна
+document.getElementsByClassName("close")[0].addEventListener("click", function() {
+  document.getElementById("confirmModal").style.display = "none";
+});
+
+window.onclick = function(event) {
+  if (event.target == document.getElementById("confirmModal")) {
+    document.getElementById("confirmModal").style.display = "none";
+  }
+};
+
+// Отправка формы при подтверждении удаления
+document.getElementById("confirmDeleteBtn").addEventListener("click", function() {
+  document.getElementById("deleteForm").submit();
+});
+</script>
+{% endblock vacancy %}

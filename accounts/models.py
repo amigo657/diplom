@@ -1,6 +1,7 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from companys.models import Company  # Убедитесь, что импортировали модель Company
+from privilegy.models import Privilege
 
 class User(AbstractUser):
     username = models.CharField(max_length=150, unique=True)
@@ -9,7 +10,8 @@ class User(AbstractUser):
     email = models.EmailField(unique=True)
     projects = models.TextField(blank=True, null=True)
     about_me = models.TextField(blank=True, null=True)
-    status_time = models.DateTimeField(auto_now=True)
+    privilege = models.OneToOneField(Privilege, on_delete=models.SET_NULL, blank=True, null=True)
+    status_time = models.DateTimeField(blank=True, null=True)
     phone = models.CharField(max_length=15, blank=True, null=True)
     country = models.CharField(max_length=50)
     city = models.CharField(max_length=50)
@@ -30,3 +32,6 @@ class Recruiter(models.Model):
 
     def __str__(self):
         return self.username
+    
+    def get_company(self):
+        return self.company_id

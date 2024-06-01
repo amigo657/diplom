@@ -1,0 +1,19 @@
+<!-- vacancy/templates/vacancy/company_detail.html -->
+{% extends 'base.html' %}
+
+{% block vacancy %}
+<h2>{{ company.name }}</h2>
+<p>{{ company.description }}</p>
+<p>Город: {{ company.city }}</p>
+<!-- <p>Сайт: <a href="{{ company.website }}" target="_blank">{{ company.website }}</a></p> -->
+
+<h3>Вакансии</h3>
+<ul>
+    {% for vacancy in vacancies %}
+    <li>
+        <a href="{% url 'vacancy_detail' vacancy.id %}">{{ vacancy.title }}</a> - {{ vacancy.city }}
+    </li>
+    {% endfor %}
+</ul>
+<a href="{% url 'vacancy_list' %}">Назад к списку вакансий</a>
+{% endblock vacancy %}

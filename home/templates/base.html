@@ -1,14 +1,13 @@
-{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    {% load static %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-
     <title>Comport</title>
-    <link rel="shortcut icon" href="{% static 'assets/images/logo/favicon.png' %}" type="image/x-icon">
-
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="shortcut icon" href="{% static 'images/logo/favicon.png' %}" type="image/x-icon">
     <!-- CSS Files -->
     <link rel="stylesheet" href="{% static 'css/animate-3.7.0.css' %}">
     <link rel="stylesheet" href="{% static 'css/font-awesome-4.7.0.min.css' %}">
@@ -19,7 +18,6 @@
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 <body>
-    
     {% include "base/header.html" %}
     {% block home %}{% endblock home %}
     {% block vacancy %}{% endblock vacancy %}
@@ -30,12 +28,29 @@
     {% include "base/footer.html" %}
     {% endblock user_content %}
 
+    <!-- Подключение jQuery перед Bootstrap JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="{% static 'js/vendor/jquery-2.2.4.min.js' %}"></script>
-	<script src="{% static 'js/vendor/bootstrap-4.1.3.min.js' %}"></script>
+    <script src="{% static 'js/vendor/bootstrap-4.1.3.min.js' %}"></script>
     <script src="{% static 'js/vendor/wow.min.js' %}"></script>
     <script src="{% static 'js/vendor/owl-carousel.min.js' %}"></script>
     <script src="{% static 'js/vendor/jquery.nice-select.min.js' %}"></script>
     <script src="{% static 'js/vendor/ion.rangeSlider.js' %}"></script>
     <script src="{% static 'js/main.js' %}"></script>
+
+    <!-- Скрипт для обработки формы оплаты -->
+    <script>
+        $(document).ready(function() {
+            $('#paymentForm').on('submit', function(e) {
+                e.preventDefault();
+                // Здесь вы можете добавить обработку данных формы и отправку на сервер
+                // Например, используя AJAX для отправки данных на сервер без перезагрузки страницы
+                // Закрытие модального окна после успешной отправки формы
+                $('#paymentModal').modal('hide');
+            });
+        });
+    </script>
 </body>
 </html>

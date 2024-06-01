@@ -36,63 +36,68 @@
                 </div>
             </div>
         </div>
+        <h2>Купить привилегию</h2>
         <div class="row">
+            {% for point in privilegys %}
             <div class="col-md-4">
                 <div class="single-table text-center mb-4 mb-md-0">
                     <div class="table-top">
-                        <h3>basic</h3>
+                        <h3>{{ point.title }}</h3>
+                        {% if point.title == "Базовый" %}
                         <i class="fa fa-home"></i>
-                    </div>
-                    <ul class="my-5">
-                        <li class="mb-2">Email Marketing</li>
-                        <li class="mb-2">Email Builder</li>
-                        <li class="mb-2">Client Testing</li>
-                        <li class="mb-2">Multiple Email Support</li>
-                        <li class="mb-2">Email Read Recepient</li>
-                        <li>User Free</li>
-                    </ul>
-                    <a href="#" class="template-btn">Buy now</a>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="single-table text-center mb-4 mb-md-0">
-                    <div class="table-top">
-                        <h3>standard</h3>
+                        {% elif point.title == "Средний" %}
                         <i class="fa fa-home"></i>
-                    </div>
-                    <ul class="my-5">
-                        <li class="mb-2">Email Marketing</li>
-                        <li class="mb-2">Email Builder</li>
-                        <li class="mb-2">Client Testing</li>
-                        <li class="mb-2">Multiple Email Support</li>
-                        <li class="mb-2">Email Read Recepient</li>
-                        <li>User Free</li>
-                    </ul>
-                    <a href="#" class="template-btn">Buy now</a>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="single-table text-center">
-                    <div class="table-top">
-                        <h3>premium</h3>
+                        {% else %}
                         <i class="fa fa-building-o"></i>
+                        {% endif %}
                     </div>
                     <ul class="my-5">
-                        <li class="mb-2">Email Marketing</li>
-                        <li class="mb-2">Email Builder</li>
-                        <li class="mb-2">Client Testing</li>
-                        <li class="mb-2">Multiple Email Support</li>
-                        <li class="mb-2">Email Read Recepient</li>
-                        <li>User Free</li>
+                        <li class="mb-2">{{ point.description }}</li>
                     </ul>
-                    <a href="#" class="template-btn">Buy now</a>
+                    <button type="button" class="template-btn" data-toggle="modal" data-target="#paymentModal-{{ point.id }}">{{ point.cost }}$</button>
                 </div>
             </div>
+
+            <!-- Модальное окно -->
+            <div class="modal fade" id="paymentModal-{{ point.id }}" tabindex="-1" role="dialog" aria-labelledby="paymentModalLabel-{{ point.id }}" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="paymentModalLabel-{{ point.id }}">Введите данные банковской карты</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="{% url 'buy_privilege' point.id %}" method="post">
+                                {% csrf_token %}
+                                <div class="form-group">
+                                    <label for="cardNumber">Номер карты</label>
+                                    <input type="text" class="form-control" id="cardNumber" name="card_number" placeholder="Введите номер карты">
+                                </div>
+                                <div class="form-group">
+                                    <label for="cardName">Имя на карте</label>
+                                    <input type="text" class="form-control" id="cardName" name="card_name" placeholder="Введите имя на карте">
+                                </div>
+                                <div class="form-group">
+                                    <label for="expiryDate">Срок действия</label>
+                                    <input type="text" class="form-control" id="expiryDate" name="expiry_date" placeholder="MM/YY">
+                                </div>
+                                <div class="form-group">
+                                    <label for="cvv">CVV</label>
+                                    <input type="text" class="form-control" id="cvv" name="cvv" placeholder="CVV">
+                                </div>
+                                <button type="submit" class="btn btn-primary">Оплатить</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
         </div>
     </div>
 </section>
 <!-- Pricing Table End -->
-
 
 <!-- Pricing Box Starts -->
 <div class="pricing-box section-padding3">
