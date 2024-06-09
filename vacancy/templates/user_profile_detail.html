@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block vacancy %}
+<div class="container mt-5 mb-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    <h2>{{ user_profile.first_name }} {{ user_profile.last_name }}</h2>
+                </div>
+                <div class="card-body">
+                    <p><strong>Email:</strong> {{ user_profile.email }}</p>
+                    <p><strong>Phone:</strong> {{ user_profile.phone }}</p>
+                    <p><strong>About Me:</strong> {{ user_profile.about_me }}</p>
+                    <p><strong>Projects:</strong> {{ user_profile.projects }}</p>
+                    <p><strong>Country:</strong> {{ user_profile.country }}</p>
+                    <p><strong>City:</strong> {{ user_profile.city }}</p>
+                    <p><strong>Privilege:</strong> {{ user_profile.privilege.name }}</p>
+                    {% if user_profile.photo %}
+                        <img src="{{ user_profile.photo.url }}" alt="{{ user_profile.username }}'s photo" class="img-fluid">
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock vacancy %}

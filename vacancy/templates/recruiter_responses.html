@@ -1,15 +1,22 @@
 {% extends 'base.html' %}
 
 {% block vacancy %}
-<h2>Отклики на вакансии</h2>
-{% for response in responses %}
-    <div>
-        <h4>Вакансия: <a href="{% url 'vacancy_detail' response.vacancy.id %}">{{ response.vacancy.title }}</a></h4>
-        <p>Пользователь: {{ response.user.username }}</p>
-        <p>Дата отклика: {{ response.created_at }}</p>
+<div class="container mt-5 mb-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <h2>Responses to Your Vacancies</h2>
+            {% for response in responses %}
+                <div class="card mt-3">
+                    <div class="card-body">
+                        <h4 class="card-title">{{ response.vacancy.title }}</h4>
+                        <p class="card-text"><strong>Applicant:</strong> {{ response.applicant.username }}</p>
+                        <p class="card-text"><strong>Application Date:</strong> {{ response.created_at }}</p>
+                        <p class="card-text"><strong>Message:</strong> {{ response.message }}</p>
+                        <a href="{% url 'user_profile_detail' response.user.id %}" class="btn btn-primary">View Applicant Profile</a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
     </div>
-{% empty %}
-    <p>Откликов пока нет.</p>
-{% endfor %}
-<a href="{% url 'vacancy_list' %}">Назад к списку вакансий</a>
+</div>
 {% endblock vacancy %}

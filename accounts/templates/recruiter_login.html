@@ -1,13 +1,34 @@
 {% extends "base.html" %}
 
 {% block user_content %}
-<h2>Recruiter Login</h2>
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Login</button>
-    {% if error_message %}
-        <p style="color:red;">{{ error_message }}</p>
-    {% endif %}
-</form>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-6 col-md-8">
+            <div class="card shadow-sm mt-5">
+                <div class="card-body">
+                    <h3 class="card-title text-center">Recruiter Login</h3>
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="form-floating mb-3">
+                            <label for="floatingUsername">Username</label>
+                            <input type="text" class="form-control" id="floatingUsername" placeholder="Username" name="username">
+                        </div>
+                        <div class="form-floating mb-3">
+                            <label for="floatingPassword">Password</label>
+                            <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="password">
+                        </div>
+                        <div class="text-center">
+                            <button class="btn btn-primary btn-block text-uppercase" type="submit">Login</button>
+                        </div>
+                        {% if error_message %}
+                            <div class="text-center mt-3">
+                                <p style="color:red;">{{ error_message }}</p>
+                            </div>
+                        {% endif %}
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock user_content %}

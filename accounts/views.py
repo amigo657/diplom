@@ -1,6 +1,7 @@
 from django.contrib.auth import login, authenticate, logout
 # from django.contrib.auth.forms import AuthenticationForm
 from django.shortcuts import render, redirect
+from companys.models import Company
 from .forms import CustomUserCreationForm, CustomAuthenticationForm, RecruiterRegistrationForm, RecruiterAuthenticationForm, ProfileForm
 
 def register_user(request):
@@ -60,6 +61,7 @@ def log_out(request):
 def recruiter_register(request):
     if request.method == 'POST':
         form = RecruiterRegistrationForm(request.POST)
+        print(form.is_valid())
         if form.is_valid():
             form.save()
             # После успешной регистрации авторизуем пользователя и перенаправляем
@@ -68,9 +70,12 @@ def recruiter_register(request):
             user = authenticate(username=username, password=raw_password)
             login(request, user)
             return redirect('home')
+        else:
+            print(form.errors)
     else:
         form = RecruiterRegistrationForm()
-    return render(request, 'recruiter_register.html', {'form': form})
+    companies = Company.objects.all()
+    return render(request, 'recruiter_register.html', {'form': form, 'companies': companies})
 
 def recruiter_login(request):
     if request.method == 'POST':

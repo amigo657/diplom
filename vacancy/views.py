@@ -7,6 +7,9 @@ from .models import Vacancy, Response
 from companys.models import Company
 from .forms import VacancyForm, ResponseForm
 from django.db.models import Q
+from django.contrib.auth import get_user_model
+from django.views.generic import DetailView
+
 
 # Функция для фильтрации вакансий
 def vacancy_list(request):
@@ -119,3 +122,11 @@ def recruiter_responses(request):
     else:
         responses = Response.objects.filter(vacancy__recruiter=request.user)
     return render(request, 'recruiter_responses.html', {'responses': responses})
+
+
+User = get_user_model()
+
+class UserProfileDetailView(DetailView):
+    model = User
+    template_name = 'user_profile_detail.html'
+    context_object_name = 'user_profile'
