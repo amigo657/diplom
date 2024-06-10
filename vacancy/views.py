@@ -13,7 +13,7 @@ from django.views.generic import DetailView
 
 # Функция для фильтрации вакансий
 def vacancy_list(request):
-    category = request.GET.get('category')
+    time = request.GET.get('time')
     location = request.GET.get('location')
     keyword = request.GET.get('keyword')
     min_salary = request.GET.get('min_salary')
@@ -21,8 +21,8 @@ def vacancy_list(request):
 
     vacancies = Vacancy.objects.all()
 
-    if category:
-        vacancies = vacancies.filter(category=category)
+    if time:
+        vacancies = vacancies.filter(work_time__iexact=time)
     
     if location:
         vacancies = vacancies.filter(city=location)

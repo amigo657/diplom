@@ -77,12 +77,13 @@
                     <div class="col-lg-12">
                         <form method="get" action="{% url 'vacancy_list' %}" class="d-md-flex flex-column align-items-center justify-content-between">
                             <div class="d-md-flex flex-row w-100 justify-content-between mb-2">
-                                <select name="category" class="form-select" style="flex: 1; min-width: 150px;">
+                                <select name="time" class="form-select" style="flex: 1; min-width: 150px;">
                                     <option value="">All Category</option>
-                                    <option value="Part Time" {% if request.GET.category == 'Part Time' %}selected{% endif %}>Part Time</option>
-                                    <option value="Full Time" {% if request.GET.category == 'Full Time' %}selected{% endif %}>Full Time</option>
-                                    <option value="Remote" {% if request.GET.category == 'Remote' %}selected{% endif %}>Remote</option>
-                                    <option value="Office Job" {% if request.GET.category == 'Office Job' %}selected{% endif %}>Office Job</option>
+                                    <option value="Full time" {% if request.GET.time == 'Full time' %}selected{% endif %}>Full time</option>
+                                    <option value="6 hours/day" {% if request.GET.time == '6 hours/day' %}selected{% endif %}>6 hours/day</option>
+                                    <option value="Remote" {% if request.GET.time == 'Remote' %}selected{% endif %}>Remote</option>
+                                    <option value="Office Job" {% if request.GET.time == 'Office Job' %}selected{% endif %}>Office Job</option>
+                                </select>
                                 </select>
                                 <select name="location" class="form-select" style="flex: 1; min-width: 150px;">
                                     <option value="">Select Location</option>
@@ -104,6 +105,7 @@
             </div>
         </div>
     </div>
+    <!-- Форма фильтрации -->
 
     <!-- Job Single Content Starts -->
     <div class="row">

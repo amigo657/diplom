@@ -2,6 +2,36 @@
 {% load static %}
 
 {% block about_us %}
+<style>
+    .developer-carousel {
+        display: flex;
+        overflow-x: auto;
+        scroll-behavior: smooth;
+        padding: 10px;
+    }
+    
+    .developer-item {
+        min-width: 300px;
+        margin-right: 10px;
+        flex-shrink: 0;
+    }
+    
+    .team-img img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+    }
+    
+    .team-footer {
+        text-align: center;
+        margin-top: 10px;
+    }
+    
+    .team-footer h3, .team-footer h5 {
+        margin: 0;
+    }
+</style>
 <header class="header-area single-page">
     <div class="header-top">
         <div class="container">
@@ -29,33 +59,25 @@
 <section class="feature-area section-padding2">
     <div class="container">
         <div class="row">
-            <div class="col-lg-12">
-                <div class="section-top text-center">
-                    <h2>Why choose us</h2>
-                    <p>Open lesser winged midst wherein may morning</p>
-                </div>
-            </div>
-        </div>
-        <div class="row">
             <div class="col-lg-4">
                 <div class="single-feature mb-4 mb-lg-0">
                     <h4>UX/UI Designer</h4>
-                    <p class="py-3">There spirit beginning bearing the open at own every give appear in third you sawe two boys</p>
-                    <a href="#" class="secondary-btn">explore now<span class="flaticon-next"></span></a>
+                    <p class="py-3">Создает удобные и привлекательные интерфейсы для цифровых продуктов, учитывая потребности пользователей.</p>
+                    <a href="{% url 'vacancy_list' %}?keyword=UX/UI Designer" class="secondary-btn">explore now<span class="flaticon-next"></span></a>
                 </div>
             </div>
             <div class="col-lg-4">
                 <div class="single-feature mb-4 mb-lg-0">
                     <h4>web Designer</h4>
-                    <p class="py-3">There spirit beginning bearing the open at own every give appear in third you sawe two boys</p>
-                    <a href="#" class="secondary-btn">explore now<span class="flaticon-next"></span></a>
+                    <p class="py-3">Специалист, создающий дизайн веб-страниц, обеспечивая их эстетическое и функциональное качество.</p>
+                    <a href="{% url 'vacancy_list' %}?keyword=web Designer" class="secondary-btn">explore now<span class="flaticon-next"></span></a>
                 </div>
             </div>
             <div class="col-lg-4">
                 <div class="single-feature">
                     <h4>Accounting and Finance</h4>
-                    <p class="py-3">There spirit beginning bearing the open at own every give appear in third you sawe two boys</p>
-                    <a href="#" class="secondary-btn">explore now<span class="flaticon-next"></span></a>
+                    <p class="py-3">Область, занимающаяся учетом и управлением финансовой деятельности компании, включая бухгалтерский учет, анализ финансовой отчетности и планирование бюджета.</p>
+                    <a href="{% url 'vacancy_list' %}?keyword=Accounting and Finance" class="secondary-btn">explore now<span class="flaticon-next"></span></a>
                 </div>
             </div>
         </div>
@@ -70,15 +92,16 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="section-top text-center">
-                    <h2>Experienced mentor team</h2>
-                    <p>Who are in extremely love with eco friendly system.</p>
+                    <h2>Команда разработчиков</h2>
+                    <p>Кто вложил не только силы, но и душу в этот проект.</p>
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-lg-3 col-sm-6">
+        <div class="developer-carousel">
+            <div class="developer-item">
                 <div class="single-team mb-5 mb-lg-0">
-                    <div class="team-img team-img1">
+                    <div class="team-img">
+                        <img src="{% static 'images/я.jpg' %}" alt="Арсений" class="team-img">
                         <div class="hover-state">
                             <ul>
                                 <li><a href="#"><i class="fa fa-facebook"></i></a></li>
@@ -88,14 +111,15 @@
                         </div>
                     </div>
                     <div class="team-footer text-center mt-4">
-                        <h3>ethel davis</h3>
-                        <h5>managing director (sales)</h5>
+                        <h3>Николай Гайдым</h3>
+                        <h5>Project CEO</h5>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-3 col-sm-6">
+            <div class="developer-item">
                 <div class="single-team mb-5 mb-lg-0">
-                    <div class="team-img team-img2">
+                    <div class="team-img">
+                        <img src="{% static 'images/Арсений.jpg' %}" alt="Арсений" class="team-img">
                         <div class="hover-state">
                             <ul>
                                 <li><a href="#"><i class="fa fa-facebook"></i></a></li>
@@ -105,14 +129,33 @@
                         </div>
                     </div>
                     <div class="team-footer text-center mt-4">
-                        <h3>rodney cooper</h3>
-                        <h5>creative art director (project)</h5>
+                        <h3>Арсений Шелейко</h3>
+                        <h5>Senior PHP Developer</h5>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-3 col-sm-6">
+            <div class="developer-item">
+                <div class="single-team mb-5 mb-lg-0">
+                    <div class="team-img">
+                        <img src="{% static 'images/Женька.jpg' %}" alt="placeholder" class="team-img">
+                        <div class="hover-state">
+                            <ul>
+                                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                                <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="team-footer text-center mt-4">
+                        <h3>Евгений Масюк</h3>
+                        <h5>Mid-level iOS Developer</h5>
+                    </div>
+                </div>
+            </div>
+            <div class="developer-item">
                 <div class="single-team mb-5 mb-sm-0">
-                    <div class="team-img team-img3">
+                    <div class="team-img">
+                        <img src="{% static 'images/Даник2.jpg' %}" alt="placeholder" class="team-img">
                         <div class="hover-state">
                             <ul>
                                 <li><a href="#"><i class="fa fa-facebook"></i></a></li>
@@ -122,14 +165,15 @@
                         </div>
                     </div>
                     <div class="team-footer text-center mt-4">
-                        <h3>dora walker</h3>
-                        <h5>senior core developer</h5>
+                        <h3>Даниил Данильченко</h3>
+                        <h5>Top Sales Manager</h5>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-3 col-sm-6">
+            <div class="developer-item">
                 <div class="single-team">
-                    <div class="team-img team-img4">
+                    <div class="team-img">
+                        <img src="{% static 'images/Юлик.jpg' %}" alt="placeholder" class="team-img">
                         <div class="hover-state">
                             <ul>
                                 <li><a href="#"><i class="fa fa-facebook"></i></a></li>
@@ -139,8 +183,26 @@
                         </div>
                     </div>
                     <div class="team-footer text-center mt-4">
-                        <h3>lena keller</h3>
-                        <h5>creative content developer</h5>
+                        <h3>Юлиан Хралович</h3>
+                        <h5>Head of Sales Department</h5>
+                    </div>
+                </div>
+            </div>
+            <div class="developer-item">
+                <div class="single-team mb-5 mb-sm-0">
+                    <div class="team-img">
+                        <img src="{% static 'images/Никитка.jpg' %}" alt="placeholder" class="team-img">
+                        <div class="hover-state">
+                            <ul>
+                                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                                <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="team-footer text-center mt-4">
+                        <h3>Никита Мишков</h3>
+                        <h5>Mid-level Dart Developer</h5>
                     </div>
                 </div>
             </div>
@@ -155,8 +217,8 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="section-top text-center">
-                    <h2>Happy employee</h2>
-                    <p>Open lesser winged midst wherein may morning</p>
+                    <h2>Обратная связь</h2>
+                    <p>Те, кто нашел работу и счаслив быть частью компании</p>
                 </div>
             </div>
         </div>
@@ -167,28 +229,43 @@
                         <div class="slide-img employee1">
                             <div class="hover-state">
                                 <div class="hover-text text-center">
-                                    <h3>david aron</h3>
+                                    <h3>Андрей Айтишный</h3>
                                     <h5>Facebook</h5>
                                 </div>
                             </div>
                         </div>
                         <div class="slide-text align-self-center">
                             <i class="fa fa-quote-left"></i>
-                            <p>Appear, called day. Sixth two after eve moved called winged very heaven two lights let all third gathered.</p>
+                            <p>Благодаря вашему сервису я нашел работу всего за неделю. Рекомендую всем, кто в поиске! Удобный поиск и быстрая связь с работодателями – это то, что нужно.</p>
                         </div>
                     </div>
                     <div class="single-slide d-sm-flex">
                         <div class="slide-img employee2">
                             <div class="hover-state">
                                 <div class="hover-text text-center">
-                                    <h3>david aron</h3>
+                                    <h3>Максим Волков</h3>
                                     <h5>Twitter</h5>
                                 </div>
                             </div>
                         </div>
                         <div class="slide-text align-self-center">
                             <i class="fa fa-quote-left"></i>
-                            <p>Appear, called day. Sixth two after eve moved called winged very heaven two lights let all third gathered.</p>
+                            <p>Ваше приложение – просто находка! Легко нашел подходящую вакансию и уже работаю в новой компании. Спасибо за отличный сервис и поддержку!</p>
+                        </div>
+                    </div>
+                    <div class="single-slide d-sm-flex">
+                        <div class="slide-img user2">
+                            <img src="{% static 'images/user2.jpg' %}" alt="placeholder" class="team-img">
+                            <div class="hover-state">
+                                <div class="hover-text text-center">
+                                    <h3>Ирина Калашникова</h3>
+                                    <h5>Twitter</h5>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="slide-text align-self-center">
+                            <i class="fa fa-quote-left"></i>
+                            <p>Ваше программное средство помогло мне найти работу моей мечты! Интерфейс интуитивно понятен, а процесс отклика на вакансии – быстрый и удобный. Огромное спасибо за такую замечательную платформу!</p>
                         </div>
                     </div>
                 </div>
@@ -197,4 +274,25 @@
     </div>
 </section>
 <!-- Employee Area End -->
+
+<script>
+    document.addEventListener('DOMContentLoaded', (event) => {
+        const carousel = document.querySelector('.developer-carousel');
+        let scrollAmount = 0;
+    
+        function autoScroll() {
+            scrollAmount += 310; // 300px width + 10px margin
+            if (scrollAmount >= carousel.scrollWidth) {
+                scrollAmount = 0;
+            }
+            carousel.scrollTo({
+                left: scrollAmount,
+                behavior: 'smooth'
+            });
+        }
+    
+        setInterval(autoScroll, 5000); // 2 seconds interval
+    });
+    </script>
+    
 {% endblock about_us %}

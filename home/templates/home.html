@@ -21,36 +21,78 @@
 </section>
 <!-- Banner Area End -->
 
-<!-- Search Area Starts -->
-<div class="search-area">
-    <div class="search-bg">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <form action="#" class="d-md-flex justify-content-between">
-                        <select>
-                            <option value="1">All Category</option>
-                            <option value="2">Part Time</option>
-                            <option value="3">Full Time</option>
-                            <option value="4">Remote</option>
-                            <option value="5">Office Job</option>
-                        </select>
-                        <select>
-                            <option value="1">Select Location</option>
-                            <option value="2">Dhaka</option>
-                            <option value="3">Rajshahi</option>
-                            <option value="4">Barishal</option>
-                            <option value="5">Noakhali</option>
-                        </select>
-                        <input type="text" placeholder="Search Keyword" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Search Keyword'" required>
-                        <button type="submit" class="template-btn">find job</button>
-                    </form>
+<!-- Форма фильтрации -->
+<style>
+    .search-bg {
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #FFA500; /* Замените на нужный цвет, если необходимо */
+}
+
+.search-bg form {
+    background: none; /* Удаление фонового цвета */
+}
+
+.form-select {
+    margin-right: 10px; /* Отступ между select-ами */
+}
+
+.single-content1 {
+    min-height: 250px; /* Измените при необходимости */
+}
+
+.single-job {
+    margin-bottom: 0; /* Уменьшить расстояние между вакансиями */
+}
+
+.single-content1 .job-text h4 a {
+    text-decoration: none;
+    color: #333; /* Цвет ссылки на заголовке вакансии */
+}
+.nice-select span.current {
+    line-height:0px;
+}
+
+</style>
+<div class="container mt-4">
+    <!-- Форма фильтрации -->
+    <div class="search-area mb-4" style="margin: 50px 0 0 0;">
+        <div class="search-bg" style="background-color: #FFA500;">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <form method="get" action="{% url 'vacancy_list' %}" class="d-md-flex flex-column align-items-center justify-content-between">
+                            <div class="d-md-flex flex-row w-100 justify-content-between mb-2">
+                                <select name="time" class="form-select" style="flex: 1; min-width: 150px;">
+                                    <option value="">All Category</option>
+                                    <option value="Full time" {% if request.GET.time == 'Full time' %}selected{% endif %}>Full time</option>
+                                    <option value="6 hours/day" {% if request.GET.time == '6 hours/day' %}selected{% endif %}>6 hours/day</option>
+                                    <option value="Remote" {% if request.GET.time == 'Remote' %}selected{% endif %}>Remote</option>
+                                    <option value="Office Job" {% if request.GET.time == 'Office Job' %}selected{% endif %}>Office Job</option>
+                                </select>
+                                </select>
+                                <select name="location" class="form-select" style="flex: 1; min-width: 150px;">
+                                    <option value="">Select Location</option>
+                                    <option value="Минск" {% if request.GET.location == 'Минск' %}selected{% endif %}>Минск</option>
+                                    <option value="Москва" {% if request.GET.location == 'Москва' %}selected{% endif %}>Москва</option>
+                                    <option value="Barishal" {% if request.GET.location == 'Barishal' %}selected{% endif %}>Barishal</option>
+                                    <option value="Noakhali" {% if request.GET.location == 'Noakhali' %}selected{% endif %}>Noakhali</option>
+                                </select>
+                            </div>
+                            <div class="d-md-flex flex-row w-100 justify-content-between mb-2">
+                                <input type="text" name="keyword" placeholder="Search Keyword or Company" value="{{ request.GET.keyword }}" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Search Keyword or Company'" class="form-control mr-2" style="flex: 1; min-width: 150px;">
+                                <input type="text" name="min_salary" placeholder="Min Salary" value="{{ request.GET.min_salary }}" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Min Salary'" class="form-control mr-2" style="flex: 1; min-width: 150px;">
+                                <input type="text" name="max_salary" placeholder="Max Salary" value="{{ request.GET.max_salary }}" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Max Salary'" class="form-control" style="flex: 1; min-width: 150px; margin-right: 9px;">
+                            </div>
+                            <button type="submit" class="btn btn-primary template-btn mt-2">Find Job</button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<!-- Search Area End -->
+<!-- Форма фильтрации -->
 
 <!-- Feature Area Starts -->
 <section class="feature-area section-padding2">
@@ -60,21 +102,21 @@
                 <div class="single-feature mb-4 mb-lg-0">
                     <h4>UX/UI Designer</h4>
                     <p class="py-3">Создает удобные и привлекательные интерфейсы для цифровых продуктов, учитывая потребности пользователей.</p>
-                    <a href="#" class="secondary-btn">explore now<span class="flaticon-next"></span></a>
+                    <a href="{% url 'vacancy_list' %}?keyword=UX/UI Designer" class="secondary-btn">explore now<span class="flaticon-next"></span></a>
                 </div>
             </div>
             <div class="col-lg-4">
                 <div class="single-feature mb-4 mb-lg-0">
                     <h4>web Designer</h4>
                     <p class="py-3">Специалист, создающий дизайн веб-страниц, обеспечивая их эстетическое и функциональное качество.</p>
-                    <a href="#" class="secondary-btn">explore now<span class="flaticon-next"></span></a>
+                    <a href="{% url 'vacancy_list' %}?keyword=web Designer" class="secondary-btn">explore now<span class="flaticon-next"></span></a>
                 </div>
             </div>
             <div class="col-lg-4">
                 <div class="single-feature">
                     <h4>Accounting and Finance</h4>
                     <p class="py-3">Область, занимающаяся учетом и управлением финансовой деятельности компании, включая бухгалтерский учет, анализ финансовой отчетности и планирование бюджета.</p>
-                    <a href="#" class="secondary-btn">explore now<span class="flaticon-next"></span></a>
+                    <a href="{% url 'vacancy_list' %}?keyword=Accounting and Finance" class="secondary-btn">explore now<span class="flaticon-next"></span></a>
                 </div>
             </div>
         </div>
