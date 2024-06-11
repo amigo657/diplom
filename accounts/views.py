@@ -35,6 +35,7 @@ def login_user(request):
 
 def profile(request):
     user = request.user
+    user.daily_bonus()
     if request.method == 'POST':
         form = ProfileForm(request.POST, request.FILES, instance=user)
         if form.is_valid():

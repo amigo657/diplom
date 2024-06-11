@@ -48,7 +48,8 @@
             <img src="{% static 'assets/images/default-profile.png' %}" alt="Default Profile Photo">
         {% endif %}
         <h2>{{ user.first_name }} {{ user.last_name }}</h2>
-        <p>{{ user.email }}</p>
+        <h3>{{ user.email }}</h3>
+        <p>Your Balance: {{ user.internal_currency }}</p>
         <button id="editButton" class="btn btn-primary">Edit profile</button>
     </div>
 
