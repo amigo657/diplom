@@ -117,14 +117,14 @@
                         <h4><a href="{% url 'vacancy_detail' vacancy.id %}">{{ vacancy.title }}</a></h4>
                         <ul class="mt-4 list-unstyled">
                             <li class="mb-3"><h5><i class="fa fa-map-marker"></i> {{ vacancy.city }}</h5></li>
-                            <li class="mb-3"><h5><i class="fa fa-pie-chart"></i> {{ vacancy.company.name }}</a></h5></li>
+                            <li class="mb-3"><h5><i class="fa fa-pie-chart"></i> {{ vacancy.company.name }}</h5></li>
                             <li class="mb-3"><h5>$ {{ vacancy.salary }}</h5></li>
                             <li><h5><i class="fa fa-clock-o"></i> Deadline: Dec 11, 2018</h5></li>
                         </ul>
                     </div>
-                    <div class="job-img">
-                        <img src="{% static 'assets/images/job1.png' %}" alt="job" style="max-width: 100px;">
-                    </div>
+                    {% if vacancy.company.logo %}
+                        <img src="{{ vacancy.company.logo.url }}" alt="{{ vacancy.company.name }} Logo" style="max-width: 100px;">
+                    {% endif %}
                 </div>
             </div>
         </div>

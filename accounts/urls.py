@@ -8,4 +8,4 @@ urlpatterns = [
     path('profile/', profile, name='profile_page'),
     path('register_hr/', recruiter_register, name='register_page_hr'),
     path('login_hr/', recruiter_login, name='login_page_hr'),
-]
+] 
