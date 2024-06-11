@@ -18,7 +18,7 @@
             <div class="row">
                 <div class="col-md-6 offset-md-3">
                     <h2>Pricing Plan</h2>
-                    <p>There spirit beginning bearing the open at own every give appear in third you sawe two boys</p>
+                    <p>Understand our pricing structure and find the best plan for your requirements.</p>
                 </div>
             </div>
         </div>
@@ -31,8 +31,8 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="section-top text-center">
-                    <h2>Perfect pricing plan</h2>
-                    <p>gormless cheeky bugger he nicked it golly gosh a arse show off show off</p>
+                    <h2>Идеальный тарифный план</h2>
+                    <p>Выберите план, который лучше всего соответствует вашим потребностям и бюджету.</p>
                 </div>
             </div>
         </div>
@@ -102,19 +102,23 @@
 <!-- Pricing Box Starts -->
 <div class="pricing-box section-padding3">
     <div class="container">
-        <div class="row">
-            <div class="col-md-6">
-                <div class="single-box1 text-center mb-4 mb-md-0">
-                    <h3>submit resume today</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</p>
-                    <a href="#" class="template-btn">submit your cv</a>
+        <div class="row" style="display: flex; align-items: stretch;">
+            <div class="col-md-6 d-flex">
+                <div class="single-box1 text-center mb-4 mb-md-0 flex-fill">
+                    <h3>Submit Resume Today</h3>
+                    <p>Сделайте следующий шаг в своей карьере, отправив свое резюме. Присоединяйтесь к нашей платформе и вас заметят ведущие работодатели, которые ищут таких талантливых людей, как вы.</p>
+                    <a href="{% url 'random_vacancy' %}" class="template-btn">Submit Your CV</a>
                 </div>
             </div>
-            <div class="col-md-6">
-                <div class="single-box2 text-center">
-                    <h3>post a new job now!</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</p>
-                    <a href="#" class="template-btn">post a job</a>
+            <div class="col-md-6 d-flex">
+                <div class="single-box2 text-center flex-fill">
+                    <h3>Post a New Job Now!</h3>
+                    <p>Вы рекрутер и ищете идеального кандидата для своей компании? Опубликуйте свое объявление о вакансиях сегодня и свяжитесь с квалифицированными профессионалами, желающими присоединиться к вашей команде.</p>
+                    {% if user.is_authenticated and user.is_recruiter %}
+                    <a href="{% url 'vacancy_create' %}" class="template-btn">Post a Job</a>
+                    {% else %}
+                    <a href="#" class="template-btn">Post a Job</a>
+                    {% endif %}
                 </div>
             </div>
         </div>

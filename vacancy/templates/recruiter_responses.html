@@ -9,7 +9,7 @@
                 <div class="card mt-3">
                     <div class="card-body">
                         <h4 class="card-title">{{ response.vacancy.title }}</h4>
-                        <p class="card-text"><strong>Applicant:</strong> {{ response.applicant.username }}</p>
+                        <p class="card-text"><strong>Applicant:</strong> {{ response.user.username }}</p>
                         <p class="card-text"><strong>Application Date:</strong> {{ response.created_at }}</p>
                         <p class="card-text"><strong>Message:</strong> {{ response.message }}</p>
                         <a href="{% url 'user_profile_detail' response.user.id %}" class="btn btn-primary">View Applicant Profile</a>

@@ -1,9 +1,10 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from .models import Privilege
-from accounts.models import User
 from .forms import PaymentForm
 from django.utils import timezone
+from vacancy.models import Vacancy
+import random
 
 def privilegy(request):
     privilegys = Privilege.objects.all()
@@ -26,3 +27,12 @@ def buy_privilege(request, privilege_id):
         form = PaymentForm()
 
     return render(request, 'privilegy/buy_privilege.html', {'form': form, 'privilege': privilege})
+
+def random_vacancy_detail(request):
+    vacancy_ids = Vacancy.objects.values_list('id', flat=True)
+    if vacancy_ids:
+        random_id = random.choice(vacancy_ids)
+        random_vacancy = get_object_or_404(Vacancy, id=random_id)
+        return redirect('vacancy_detail', vacancy_id=random_vacancy.id)
+    else:
+        return redirect('vacancy_list')

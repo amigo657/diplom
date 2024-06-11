@@ -23,7 +23,7 @@
 
 <!-- Форма фильтрации -->
 <style>
-    .search-bg {
+.search-bg {
     padding: 20px;
     border-radius: 10px;
     background-color: #FFA500; /* Замените на нужный цвет, если необходимо */
@@ -52,40 +52,44 @@
 .nice-select span.current {
     line-height:0px;
 }
-
 </style>
+
+<!-- Форма фильтрации -->
 <div class="container mt-4">
-    <!-- Форма фильтрации -->
     <div class="search-area mb-4" style="margin: 50px 0 0 0;">
         <div class="search-bg" style="background-color: #FFA500;">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-12">
-                        <form method="get" action="{% url 'vacancy_list' %}" class="d-md-flex flex-column align-items-center justify-content-between">
-                            <div class="d-md-flex flex-row w-100 justify-content-between mb-2">
-                                <select name="time" class="form-select" style="flex: 1; min-width: 150px;">
-                                    <option value="">All Category</option>
-                                    <option value="Full time" {% if request.GET.time == 'Full time' %}selected{% endif %}>Full time</option>
-                                    <option value="6 hours/day" {% if request.GET.time == '6 hours/day' %}selected{% endif %}>6 hours/day</option>
-                                    <option value="Remote" {% if request.GET.time == 'Remote' %}selected{% endif %}>Remote</option>
-                                    <option value="Office Job" {% if request.GET.time == 'Office Job' %}selected{% endif %}>Office Job</option>
-                                </select>
-                                </select>
-                                <select name="location" class="form-select" style="flex: 1; min-width: 150px;">
-                                    <option value="">Select Location</option>
-                                    <option value="Минск" {% if request.GET.location == 'Минск' %}selected{% endif %}>Минск</option>
-                                    <option value="Москва" {% if request.GET.location == 'Москва' %}selected{% endif %}>Москва</option>
-                                    <option value="Barishal" {% if request.GET.location == 'Barishal' %}selected{% endif %}>Barishal</option>
-                                    <option value="Noakhali" {% if request.GET.location == 'Noakhali' %}selected{% endif %}>Noakhali</option>
-                                </select>
-                            </div>
-                            <div class="d-md-flex flex-row w-100 justify-content-between mb-2">
-                                <input type="text" name="keyword" placeholder="Search Keyword or Company" value="{{ request.GET.keyword }}" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Search Keyword or Company'" class="form-control mr-2" style="flex: 1; min-width: 150px;">
-                                <input type="text" name="min_salary" placeholder="Min Salary" value="{{ request.GET.min_salary }}" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Min Salary'" class="form-control mr-2" style="flex: 1; min-width: 150px;">
-                                <input type="text" name="max_salary" placeholder="Max Salary" value="{{ request.GET.max_salary }}" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Max Salary'" class="form-control" style="flex: 1; min-width: 150px; margin-right: 9px;">
-                            </div>
-                            <button type="submit" class="btn btn-primary template-btn mt-2">Find Job</button>
-                        </form>
+                        {% if user.is_authenticated %}
+                            <form method="get" action="{% url 'vacancy_list' %}" class="d-md-flex flex-column align-items-center justify-content-between">
+                                <div class="d-md-flex flex-row w-100 justify-content-between mb-2">
+                                    <select name="time" class="form-select" style="flex: 1; min-width: 150px;">
+                                        <option value="">All Category</option>
+                                        <option value="Full time" {% if request.GET.time == 'Full time' %}selected{% endif %}>Full time</option>
+                                        <option value="6 hours/day" {% if request.GET.time == '6 hours/day' %}selected{% endif %}>6 hours/day</option>
+                                        <option value="Remote" {% if request.GET.time == 'Remote' %}selected{% endif %}>Remote</option>
+                                        <option value="Office Job" {% if request.GET.time == 'Office Job' %}selected{% endif %}>Office Job</option>
+                                    </select>
+                                    </select>
+                                    <select name="location" class="form-select" style="flex: 1; min-width: 150px;">
+                                        <option value="">Select Location</option>
+                                        <option value="Минск" {% if request.GET.location == 'Минск' %}selected{% endif %}>Минск</option>
+                                        <option value="Москва" {% if request.GET.location == 'Москва' %}selected{% endif %}>Москва</option>
+                                        <option value="Barishal" {% if request.GET.location == 'Barishal' %}selected{% endif %}>Barishal</option>
+                                        <option value="Noakhali" {% if request.GET.location == 'Noakhali' %}selected{% endif %}>Noakhali</option>
+                                    </select>
+                                </div>
+                                <div class="d-md-flex flex-row w-100 justify-content-between mb-2">
+                                    <input type="text" name="keyword" placeholder="Search Keyword or Company" value="{{ request.GET.keyword }}" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Search Keyword or Company'" class="form-control mr-2" style="flex: 1; min-width: 150px;">
+                                    <input type="text" name="min_salary" placeholder="Min Salary" value="{{ request.GET.min_salary }}" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Min Salary'" class="form-control mr-2" style="flex: 1; min-width: 150px;">
+                                    <input type="text" name="max_salary" placeholder="Max Salary" value="{{ request.GET.max_salary }}" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Max Salary'" class="form-control" style="flex: 1; min-width: 150px; margin-right: 9px;">
+                                </div>
+                                <button type="submit" class="btn btn-primary template-btn mt-2">Find Job</button>
+                            </form>
+                        {% else %}
+                            <p>Please <a href="{% url 'login_page' %}">log in</a> to use the filter form.</p>
+                        {% endif %}
                     </div>
                 </div>
             </div>
@@ -95,28 +99,40 @@
 <!-- Форма фильтрации -->
 
 <!-- Feature Area Starts -->
-<section class="feature-area section-padding2">
+<section class="feature-area section mt-5 mb-5">
     <div class="container">
-        <div class="row">
-            <div class="col-lg-4">
-                <div class="single-feature mb-4 mb-lg-0">
+        <div class="row" style="display: flex; align-items: stretch;">
+            <div class="col-lg-4 d-flex">
+                <div class="single-feature mb-4 mb-lg-0 flex-fill">
                     <h4>UX/UI Designer</h4>
                     <p class="py-3">Создает удобные и привлекательные интерфейсы для цифровых продуктов, учитывая потребности пользователей.</p>
-                    <a href="{% url 'vacancy_list' %}?keyword=UX/UI Designer" class="secondary-btn">explore now<span class="flaticon-next"></span></a>
+                    {% if user.is_authenticated %}
+                        <a href="{% url 'vacancy_list' %}?keyword=UX/UI Designer" class="secondary-btn">explore now<span class="flaticon-next"></span></a>
+                    {% else %}
+                        <a href="{% url 'login_page' %}" class="secondary-btn">log in to explore<span class="flaticon-next"></span></a>
+                    {% endif %}
                 </div>
             </div>
-            <div class="col-lg-4">
-                <div class="single-feature mb-4 mb-lg-0">
+            <div class="col-lg-4 d-flex">
+                <div class="single-feature mb-4 mb-lg-0 flex-fill">
                     <h4>web Designer</h4>
                     <p class="py-3">Специалист, создающий дизайн веб-страниц, обеспечивая их эстетическое и функциональное качество.</p>
-                    <a href="{% url 'vacancy_list' %}?keyword=web Designer" class="secondary-btn">explore now<span class="flaticon-next"></span></a>
+                    {% if user.is_authenticated %}
+                        <a href="{% url 'vacancy_list' %}?keyword=web Designer" class="secondary-btn">explore now<span class="flaticon-next"></span></a>
+                    {% else %}
+                        <a href="{% url 'login_page' %}" class="secondary-btn">log in to explore<span class="flaticon-next"></span></a>
+                    {% endif %}
                 </div>
             </div>
-            <div class="col-lg-4">
-                <div class="single-feature">
+            <div class="col-lg-4 d-flex">
+                <div class="single-feature flex-fill">
                     <h4>Accounting and Finance</h4>
                     <p class="py-3">Область, занимающаяся учетом и управлением финансовой деятельности компании, включая бухгалтерский учет, анализ финансовой отчетности и планирование бюджета.</p>
-                    <a href="{% url 'vacancy_list' %}?keyword=Accounting and Finance" class="secondary-btn">explore now<span class="flaticon-next"></span></a>
+                    {% if user.is_authenticated %}
+                        <a href="{% url 'vacancy_list' %}?keyword=Accounting and Finance" class="secondary-btn">explore now<span class="flaticon-next"></span></a>
+                    {% else %}
+                        <a href="{% url 'login_page' %}" class="secondary-btn">log in to explore<span class="flaticon-next"></span></a>
+                    {% endif %}
                 </div>
             </div>
         </div>
@@ -289,8 +305,8 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="section-top text-center">
-                    <h2>Happy employee</h2>
-                    <p>Открой малую крылатую середину, где может утро</p>
+                    <h2>Обратная связь</h2>
+                    <p>Те, кто нашел работу и счаслив быть частью компании</p>
                 </div>
             </div>
         </div>
@@ -301,28 +317,43 @@
                         <div class="slide-img employee1">
                             <div class="hover-state">
                                 <div class="hover-text text-center">
-                                    <h3>david aron</h3>
+                                    <h3>Андрей Айтишный</h3>
                                     <h5>Facebook</h5>
                                 </div>
                             </div>
                         </div>
                         <div class="slide-text align-self-center">
                             <i class="fa fa-quote-left"></i>
-                            <p>Appear, called day. Sixth two after eve moved called winged very heaven two lights let all third gathered.</p>
+                            <p>Благодаря вашему сервису я нашел работу всего за неделю. Рекомендую всем, кто в поиске! Удобный поиск и быстрая связь с работодателями – это то, что нужно.</p>
                         </div>
                     </div>
                     <div class="single-slide d-sm-flex">
                         <div class="slide-img employee2">
                             <div class="hover-state">
                                 <div class="hover-text text-center">
-                                    <h3>david aron</h3>
+                                    <h3>Максим Волков</h3>
                                     <h5>Twitter</h5>
                                 </div>
                             </div>
                         </div>
                         <div class="slide-text align-self-center">
                             <i class="fa fa-quote-left"></i>
-                            <p>Appear, called day. Sixth two after eve moved called winged very heaven two lights let all third gathered.</p>
+                            <p>Ваше приложение – просто находка! Легко нашел подходящую вакансию и уже работаю в новой компании. Спасибо за отличный сервис и поддержку!</p>
+                        </div>
+                    </div>
+                    <div class="single-slide d-sm-flex">
+                        <div class="slide-img user2">
+                            <img src="{% static 'images/user2.jpg' %}" alt="placeholder" class="team-img">
+                            <div class="hover-state">
+                                <div class="hover-text text-center">
+                                    <h3>Ирина Калашникова</h3>
+                                    <h5>Twitter</h5>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="slide-text align-self-center">
+                            <i class="fa fa-quote-left"></i>
+                            <p>Ваше программное средство помогло мне найти работу моей мечты! Интерфейс интуитивно понятен, а процесс отклика на вакансии – быстрый и удобный. Огромное спасибо за такую замечательную платформу!</p>
                         </div>
                     </div>
                 </div>
