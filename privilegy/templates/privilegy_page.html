@@ -18,7 +18,7 @@
             <div class="row">
                 <div class="col-md-6 offset-md-3">
                     <h2>Pricing Plan</h2>
-                    <p>There spirit beginning bearing the open at own every give appear in third you sawe two boys</p>
+                    <p>Understand our pricing structure and find the best plan for your requirements.</p>
                 </div>
             </div>
         </div>
@@ -31,12 +31,12 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="section-top text-center">
-                    <h2>Perfect pricing plan</h2>
-                    <p>gormless cheeky bugger he nicked it golly gosh a arse show off show off</p>
+                    <h2>Ideal tariff plan</h2>
+                    <p>Choose the plan that best suits your needs and budget.</p>
                 </div>
             </div>
         </div>
-        <h2>Купить привилегию</h2>
+        <h2>Buy a privilege</h2>
         <div class="row">
             {% for point in privilegys %}
             <div class="col-md-4">
@@ -63,7 +63,7 @@
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="paymentModalLabel-{{ point.id }}">Введите данные банковской карты</h5>
+                            <h5 class="modal-title" id="paymentModalLabel-{{ point.id }}">Enter your bank card details</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -72,15 +72,15 @@
                             <form action="{% url 'buy_privilege' point.id %}" method="post">
                                 {% csrf_token %}
                                 <div class="form-group">
-                                    <label for="cardNumber">Номер карты</label>
+                                    <label for="cardNumber">Card number</label>
                                     <input type="text" class="form-control" id="cardNumber" name="card_number" placeholder="Введите номер карты">
                                 </div>
                                 <div class="form-group">
-                                    <label for="cardName">Имя на карте</label>
+                                    <label for="cardName">The name on the map</label>
                                     <input type="text" class="form-control" id="cardName" name="card_name" placeholder="Введите имя на карте">
                                 </div>
                                 <div class="form-group">
-                                    <label for="expiryDate">Срок действия</label>
+                                    <label for="expiryDate">Validity</label>
                                     <input type="text" class="form-control" id="expiryDate" name="expiry_date" placeholder="MM/YY">
                                 </div>
                                 <div class="form-group">
@@ -102,19 +102,23 @@
 <!-- Pricing Box Starts -->
 <div class="pricing-box section-padding3">
     <div class="container">
-        <div class="row">
-            <div class="col-md-6">
-                <div class="single-box1 text-center mb-4 mb-md-0">
-                    <h3>submit resume today</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</p>
-                    <a href="#" class="template-btn">submit your cv</a>
+        <div class="row" style="display: flex; align-items: stretch;">
+            <div class="col-md-6 d-flex">
+                <div class="single-box1 text-center mb-4 mb-md-0 flex-fill">
+                    <h3>Submit Resume Today</h3>
+                    <p>Take the next step in your career by submitting your resume. Join our platform and get noticed by top employers looking for talented people like you.</p>
+                    <a href="{% url 'random_vacancy' %}" class="template-btn">Submit Your CV</a>
                 </div>
             </div>
-            <div class="col-md-6">
-                <div class="single-box2 text-center">
-                    <h3>post a new job now!</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</p>
-                    <a href="#" class="template-btn">post a job</a>
+            <div class="col-md-6 d-flex">
+                <div class="single-box2 text-center flex-fill">
+                    <h3>Post a New Job Now!</h3>
+                    <p>Are you a recruiter looking for the ideal candidate for your company? Post your job posting today and connect with qualified professionals looking to join your team.</p>
+                    {% if user.is_authenticated and user.is_recruiter %}
+                    <a href="{% url 'vacancy_create' %}" class="template-btn">Post a Job</a>
+                    {% else %}
+                    <a href="#" class="template-btn">Post a Job</a>
+                    {% endif %}
                 </div>
             </div>
         </div>

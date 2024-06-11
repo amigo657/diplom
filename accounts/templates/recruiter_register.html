@@ -1,10 +1,103 @@
 {% extends "base.html" %}
 
 {% block user_content %}
-<h2>Recruiter Registration</h2>
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Register</button>
-</form>
+<div class="container mb-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-6 col-md-8">
+            <div class="card shadow-sm mt-5">
+                <div class="card-body">
+                    <h3 class="card-title text-center">Recruiter Registration</h3>
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="form-floating mb-3">
+                            <label for="floatingUsername">Username</label>
+                            <input type="text" class="form-control{% if form.username.errors %} is-invalid{% endif %}" id="floatingUsername" placeholder="Username" name="username" value="{{ form.username.value|default:'' }}">
+                            {% if form.username.errors %}
+                                <div class="invalid-feedback">
+                                    {% for error in form.username.errors %}
+                                        <p>{{ error }}</p>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="form-floating mb-3">
+                            <label for="floatingFirstName">First Name</label>
+                            <input type="text" class="form-control{% if form.first_name.errors %} is-invalid{% endif %}" id="floatingFirstName" placeholder="First Name" name="first_name" value="{{ form.first_name.value|default:'' }}">
+                            {% if form.first_name.errors %}
+                                <div class="invalid-feedback">
+                                    {% for error in form.first_name.errors %}
+                                        <p>{{ error }}</p>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="form-floating mb-3">
+                            <label for="floatingLastName">Last Name</label>
+                            <input type="text" class="form-control{% if form.last_name.errors %} is-invalid{% endif %}" id="floatingLastName" placeholder="Last Name" name="last_name" value="{{ form.last_name.value|default:'' }}">
+                            {% if form.last_name.errors %}
+                                <div class="invalid-feedback">
+                                    {% for error in form.last_name.errors %}
+                                        <p>{{ error }}</p>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="mb-3">
+                            <label for="inputCompany" class="form-label">Company</label>
+                            <select id="inputCompany" class="form-select{% if form.company_id.errors %} is-invalid{% endif %}" name="company_id" style="padding: 16px; border: 1px solid #ced4da; border-radius: 0.25rem;">
+                                <option selected>Choose...</option>
+                                {% for company in companies %}
+                                    <option value="{{ company.id }}" {% if form.company_id.value == company.id %}selected{% endif %}>{{ company.name }}</option>
+                                {% endfor %}
+                            </select>
+                            {% if form.company_id.errors %}
+                                <div class="invalid-feedback">
+                                    {% for error in form.company_id.errors %}
+                                        <p>{{ error }}</p>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>  
+                        <div class="form-floating mb-3">
+                            <label for="floatingEmail">Email</label>
+                            <input type="email" class="form-control{% if form.email.errors %} is-invalid{% endif %}" id="floatingEmail" placeholder="Email" name="email" value="{{ form.email.value|default:'' }}">
+                            {% if form.email.errors %}
+                                <div class="invalid-feedback">
+                                    {% for error in form.email.errors %}
+                                        <p>{{ error }}</p>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="form-floating mb-3">
+                            <label for="floatingPassword1">Password</label>
+                            <input type="password" class="form-control{% if form.password1.errors %} is-invalid{% endif %}" id="floatingPassword1" placeholder="Password" name="password1">
+                            {% if form.password1.errors %}
+                                <div class="invalid-feedback">
+                                    {% for error in form.password1.errors %}
+                                        <p>{{ error }}</p>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="form-floating mb-3">
+                            <label for="floatingPassword2">Confirm Password</label>
+                            <input type="password" class="form-control{% if form.password2.errors %} is-invalid{% endif %}" id="floatingPassword2" placeholder="Confirm Password" name="password2">
+                            {% if form.password2.errors %}
+                                <div class="invalid-feedback">
+                                    {% for error in form.password2.errors %}
+                                        <p>{{ error }}</p>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>                      
+                        <div class="text-center">
+                            <button class="btn btn-primary btn-block text-uppercase" type="submit">Register</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock user_content %}

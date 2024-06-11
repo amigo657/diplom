@@ -52,7 +52,7 @@
             <div class="row">
                 <div class="col-md-6 offset-md-3">
                     <h2>Job Category</h2>
-                    <p>There spirit beginning bearing the open at own every give appear in third you sawe two boys</p>
+                    <p>Browse through various job categories to find the perfect match for your skills and interests.</p>
                 </div>
             </div>
         </div>
@@ -61,9 +61,12 @@
 <!-- Header Area End -->
 
 <div class="container mt-4">
-    <h2>Список вакансий</h2>
+    <h2>List of vacancies</h2>
     {% if user.is_authenticated and user.is_recruiter %}
-        <a href="{% url 'vacancy_create' %}" class="btn btn-primary mb-4">Создать вакансию</a>
+    <div class="mb-4 d-flex justify-content-between">
+        <a href="{% url 'vacancy_create' %}" class="btn btn-primary mb-4">Create a vacancy</a>
+        <a href="{% url 'recruiter_responses' %}" class="btn btn-success mb-4">Responses to vacancies</a>
+    </div>
     {% endif %}
 
     <!-- Форма фильтрации -->
@@ -74,17 +77,18 @@
                     <div class="col-lg-12">
                         <form method="get" action="{% url 'vacancy_list' %}" class="d-md-flex flex-column align-items-center justify-content-between">
                             <div class="d-md-flex flex-row w-100 justify-content-between mb-2">
-                                <select name="category" class="form-select" style="flex: 1; min-width: 150px;">
+                                <select name="time" class="form-select" style="flex: 1; min-width: 150px;">
                                     <option value="">All Category</option>
-                                    <option value="Part Time" {% if request.GET.category == 'Part Time' %}selected{% endif %}>Part Time</option>
-                                    <option value="Full Time" {% if request.GET.category == 'Full Time' %}selected{% endif %}>Full Time</option>
-                                    <option value="Remote" {% if request.GET.category == 'Remote' %}selected{% endif %}>Remote</option>
-                                    <option value="Office Job" {% if request.GET.category == 'Office Job' %}selected{% endif %}>Office Job</option>
+                                    <option value="Full time" {% if request.GET.time == 'Full time' %}selected{% endif %}>Full time</option>
+                                    <option value="6 hours/day" {% if request.GET.time == '6 hours/day' %}selected{% endif %}>6 hours/day</option>
+                                    <option value="Remote" {% if request.GET.time == 'Remote' %}selected{% endif %}>Remote</option>
+                                    <option value="Office Job" {% if request.GET.time == 'Office Job' %}selected{% endif %}>Office Job</option>
+                                </select>
                                 </select>
                                 <select name="location" class="form-select" style="flex: 1; min-width: 150px;">
                                     <option value="">Select Location</option>
-                                    <option value="Минск" {% if request.GET.location == 'Минск' %}selected{% endif %}>Минск</option>
-                                    <option value="Москва" {% if request.GET.location == 'Москва' %}selected{% endif %}>Москва</option>
+                                    <option value="Минск" {% if request.GET.location == 'Минск' %}selected{% endif %}>Minsk</option>
+                                    <option value="Москва" {% if request.GET.location == 'Москва' %}selected{% endif %}>Moscow</option>
                                     <option value="Barishal" {% if request.GET.location == 'Barishal' %}selected{% endif %}>Barishal</option>
                                     <option value="Noakhali" {% if request.GET.location == 'Noakhali' %}selected{% endif %}>Noakhali</option>
                                 </select>
@@ -101,6 +105,7 @@
             </div>
         </div>
     </div>
+    <!-- Форма фильтрации -->
 
     <!-- Job Single Content Starts -->
     <div class="row">

@@ -1,11 +1,66 @@
 {% extends "base.html" %}
 
 {% block user_content %}
-<h2>Register</h2>
-    <form method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Register</button>
-    </form>
-    <a href="{% url 'register_page_hr' %}"><p>Already</a> have an account? <a href="{% url 'login_page' %}">Login here</a></p>
+<div class="container mb-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-6 col-md-8">
+            <div class="card shadow-sm mt-5">
+                <div class="card-body">
+                    <h3 class="card-title text-center">Find the Job of Your Dreams</h3>
+                    <p class="text-center text-muted">It is high time for work</p>
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="form-floating mb-3">
+                            <label for="floatingFirstName">First Name</label>
+                            <input type="text" class="form-control" id="floatingFirstName" placeholder="First Name" name="first_name">
+                        </div>
+                        <div class="form-floating mb-3">
+                            <label for="floatingLastName">Last Name</label>
+                            <input type="text" class="form-control" id="floatingLastName" placeholder="Last Name" name="last_name">
+                        </div>
+                        <div class="form-floating mb-3">
+                            <label for="floatingUsername">Username</label>
+                            <input type="text" class="form-control" id="floatingUsername" placeholder="Username" name="username">
+                        </div>
+                        <div class="form-floating mb-3">
+                            <label for="floatingEmail">Email</label>
+                            <input type="email" class="form-control" id="floatingEmail" placeholder="Email" name="email">
+                        </div>
+                        <div class="form-floating mb-3">
+                            <label for="floatingPhone">Phone</label>
+                            <input type="text" class="form-control" id="floatingPhone" placeholder="Phone" name="phone">
+                        </div>
+                        <div class="form-floating mb-3">
+                            <label for="floatingCountry">Country</label>
+                            <input type="text" class="form-control" id="floatingCountry" placeholder="Country" name="country">
+                        </div>
+                        <div class="form-floating mb-3">
+                            <label for="floatingCity">City</label>
+                            <input type="text" class="form-control" id="floatingCity" placeholder="City" name="city">
+                        </div>
+                        <div class="form-floating mb-3">
+                            <label for="floatingPhoto">Photo</label>
+                            <input type="file" class="form-control" id="floatingPhoto" placeholder="Photo" name="photo">
+                        </div>
+                        <div class="form-floating mb-3">
+                            <label for="floatingPassword1">Password</label>
+                            <input type="password" class="form-control" id="floatingPassword1" placeholder="Password" name="password1">
+                        </div>
+                        <div class="form-floating mb-3">
+                            <label for="floatingPassword2">Confirm Password</label>
+                            <input type="password" class="form-control" id="floatingPassword2" placeholder="Confirm Password" name="password2">
+                        </div>
+                        <div class="text-center">
+                            <button class="btn btn-primary btn-block text-uppercase" type="submit">Register</button>
+                        </div>
+                    </form>
+                    <div class="text-center mt-3">
+                        <p>Already have an account? <a href="{% url 'login_page' %}">Login here</a></p>
+                        <p>Are you a recruiter? <a href="{% url 'register_page_hr' %}">Register as Recruiter</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock user_content %}

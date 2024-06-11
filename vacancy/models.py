@@ -14,3 +14,12 @@ class Vacancy(models.Model):
 
     def __str__(self):
         return self.title
+    
+    
+class Response(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='responses')
+    vacancy = models.ForeignKey(Vacancy, on_delete=models.CASCADE, related_name='responses')
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def str(self):
+        return f"{self.user.username} - {self.vacancy.title}"

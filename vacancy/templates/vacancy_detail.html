@@ -1,25 +1,53 @@
 {% extends 'base.html' %}
 
 {% block vacancy %}
-<h2>{{ vacancy.title }}</h2>
-<p>{{ vacancy.description }}</p>
-<p>Зарплата: {{ vacancy.salary }}</p>
-<p>Время работы: {{ vacancy.work_time }}</p>
-<p>Город: {{ vacancy.city }}</p>
-<p>Компания: <a href="{% url 'company_detail' vacancy.company.id %}">{{ vacancy.company.name }}</a></p>
+<div class="container mb-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card mt-5">
+                <div class="card-body">
+                    <h2 class="card-title">{{ vacancy.title }}</h2>
+                    <p class="card-text">{{ vacancy.description }}</p>
+                    <p class="card-text"><strong>Salary:</strong> {{ vacancy.salary }}</p>
+                    <p class="card-text"><strong>Work time:</strong> {{ vacancy.work_time }}</p>
+                    <p class="card-text"><strong>City:</strong> {{ vacancy.city }}</p>
+                    <p class="card-text"><strong>Company:</strong> <a href="{% url 'company_detail' vacancy.company.id %}">{{ vacancy.company.name }}</a></p>
 
-{% if request.user == vacancy.recruiter %}
-    <button id="deleteBtn">Удалить вакансию</button>
-{% endif %}
+                    {% if request.user.is_authenticated and not request.user == vacancy.recruiter %}
+                        {% if user_response %}
+                            <p>You have already applied for this vacancy.</p>
+                        {% else %}
+                            <a href="{% url 'apply_for_vacancy' vacancy.id %}" class="btn btn-primary">Apply</a>
+                        {% endif %}
+                    {% elif request.user == vacancy.recruiter %}
+                        <button id="deleteBtn" class="btn btn-danger">Delete Vacancy</button>
+                    {% endif %}
 
-<a href="{% url 'vacancy_list' %}">Назад к списку вакансий</a>
+                    <a href="{% url 'vacancy_list' %}" class="btn btn-secondary">Back to Vacancy List</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-<!-- Модальное окно для подтверждения удаления -->
-<div id="confirmModal" class="modal">
-  <div class="modal-content">
-    <span class="close">&times;</span>
-    <p>Вы уверены, что хотите удалить вакансию "{{ vacancy.title }}"?</p>
-    <button id="confirmDeleteBtn">Удалить</button>
+<!-- Modal for confirming deletion -->
+<div id="confirmModal" class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title">Confirm Deletion</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+              </button>
+          </div>
+          <div class="modal-body">
+              <p>Are you sure you want to delete the vacancy "{{ vacancy.title }}"?</p>
+          </div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button id="confirmDeleteBtn" type="button" class="btn btn-danger">Delete</button>
+          </div>
+      </div>
   </div>
 </div>
 
@@ -29,25 +57,21 @@
 </form>
 
 <script>
-// Открытие модального окна при нажатии на кнопку "Удалить вакансию"
-document.getElementById("deleteBtn").addEventListener("click", function() {
-  document.getElementById("confirmModal").style.display = "block";
-});
+  $(document).ready(function() {
+    // Open modal on delete button click
+    $('#deleteBtn').on('click', function() {
+      $('#confirmModal').modal('show');
+    });
 
-// Закрытие модального окна при нажатии на кнопку "Закрыть" или вне окна
-document.getElementsByClassName("close")[0].addEventListener("click", function() {
-  document.getElementById("confirmModal").style.display = "none";
-});
+    // Close modal on close button click
+    $('.close, .btn-secondary').on('click', function() {
+      $('#confirmModal').modal('hide');
+    });
 
-window.onclick = function(event) {
-  if (event.target == document.getElementById("confirmModal")) {
-    document.getElementById("confirmModal").style.display = "none";
-  }
-};
-
-// Отправка формы при подтверждении удаления
-document.getElementById("confirmDeleteBtn").addEventListener("click", function() {
-  document.getElementById("deleteForm").submit();
-});
+    // Submit form on delete confirmation
+    $('#confirmDeleteBtn').on('click', function() {
+      $('#deleteForm').submit();
+    });
+  });
 </script>
 {% endblock vacancy %}
