@@ -12,21 +12,17 @@ def privilegy(request):
 
 @login_required
 def buy_privilege(request, privilege_id):
-    privilege = Privilege.objects.get(id=privilege_id)
-    
-    if request.method == "POST":
-        form = PaymentForm(request.POST)
-        if form.is_valid():
-            # Назначение привилегии пользователю
-            user = request.user
-            user.privilege = privilege
-            user.status_time = timezone.now()
-            user.save()
-            return redirect('home')
-    else:
-        form = PaymentForm()
+    privilege = get_object_or_404(Privilege, id=privilege_id)
+    user = request.user
 
-    return render(request, 'privilegy/buy_privilege.html', {'form': form, 'privilege': privilege})
+    if user.internal_currency >= privilege.cost:
+        user.internal_currency -= privilege.cost
+        user.privilege = privilege
+        user.status_time = timezone.now()
+        user.save()
+        return redirect('home')
+    else:
+        return render(request, 'privilegy/buy_privilege.html', {'privilege': privilege, 'error': 'Not enough internal currency'})
 
 def random_vacancy_detail(request):
     vacancy_ids = Vacancy.objects.values_list('id', flat=True)

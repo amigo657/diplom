@@ -73,6 +73,11 @@ def apply_for_vacancy(request, vacancy_id):
             response = form.save(commit=False)
             response.user = request.user
             response.save()
+            user = request.user
+            user.num_applications += 1
+            user.apply_for_vacancy(vacancy)
+            user.apply_for_multiple_vacancies()
+            user.save()
             return redirect('vacancy_detail', vacancy_id=vacancy.id)
     else:
         form = ResponseForm(initial={'vacancy': vacancy})
