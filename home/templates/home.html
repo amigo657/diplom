@@ -13,7 +13,7 @@
                 <div class="banner-text">
                     <h1>find your dream <span>job</span> with comport</h1>
                     <p class="py-3">Wherein herb beginning. Moved after gathering. Sea hi crate fowl man replenish place divided likeness herb one two lnetn Winged moving saw, may over.</p>
-                    <a href="#" class="secondary-btn">explore now<span class="flaticon-next"></span></a>
+                    <!-- <a href="#" class="secondary-btn">explore now<span class="flaticon-next"></span></a> -->
                 </div>
             </div>
         </div>
@@ -105,7 +105,7 @@
             <div class="col-lg-4 d-flex">
                 <div class="single-feature mb-4 mb-lg-0 flex-fill">
                     <h4>UX/UI Designer</h4>
-                    <p class="py-3">Создает удобные и привлекательные интерфейсы для цифровых продуктов, учитывая потребности пользователей.</p>
+                    <p class="py-3">Creates user-friendly and attractive interfaces for digital products, taking into account user needs.</p>
                     {% if user.is_authenticated %}
                         <a href="{% url 'vacancy_list' %}?keyword=UX/UI Designer" class="secondary-btn">explore now<span class="flaticon-next"></span></a>
                     {% else %}
@@ -116,7 +116,7 @@
             <div class="col-lg-4 d-flex">
                 <div class="single-feature mb-4 mb-lg-0 flex-fill">
                     <h4>web Designer</h4>
-                    <p class="py-3">Специалист, создающий дизайн веб-страниц, обеспечивая их эстетическое и функциональное качество.</p>
+                    <p class="py-3">A specialist who creates the design of web pages, ensuring their aesthetic and functional quality.</p>
                     {% if user.is_authenticated %}
                         <a href="{% url 'vacancy_list' %}?keyword=web Designer" class="secondary-btn">explore now<span class="flaticon-next"></span></a>
                     {% else %}
@@ -127,7 +127,7 @@
             <div class="col-lg-4 d-flex">
                 <div class="single-feature flex-fill">
                     <h4>Accounting and Finance</h4>
-                    <p class="py-3">Область, занимающаяся учетом и управлением финансовой деятельности компании, включая бухгалтерский учет, анализ финансовой отчетности и планирование бюджета.</p>
+                    <p class="py-3">The field concerned with the accounting and management of a company's financial activities, including accounting, financial statement analysis, and budget planning.</p>
                     {% if user.is_authenticated %}
                         <a href="{% url 'vacancy_list' %}?keyword=Accounting and Finance" class="secondary-btn">explore now<span class="flaticon-next"></span></a>
                     {% else %}
@@ -220,7 +220,7 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="jobs-title">
-                    <h2>Просмотрите последние вакансии</h2>
+                    <h2>View the latest vacancies</h2>
                 </div>
             </div>
         </div>
@@ -270,7 +270,11 @@
             </div>
         </div>
         <div class="more-job-btn mt-5 text-center">
-            <a href="#" class="template-btn">more job post</a>
+            {% if user.is_authenticated %}
+            <a href="{% url 'vacancy_list' %}" class="template-btn">more job post</a>
+            {% else %}
+            <a href="{% url 'login_page' %}" class="template-btn">more job post</a>
+            {% endif %}
         </div>
     </div>
 </section>
@@ -282,8 +286,8 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="section-top text-center">
-                    <h2>Получайте информацию о вакансиях ежедневно</h2>
-                    <p>Подпишитесь на нашу рассылку и получите новые предложения!</p>
+                    <h2>Receive information about vacancies daily</h2>
+                    <p>Subscribe to our newsletter and receive new offers!</p>
                 </div>
             </div>
         </div>
@@ -305,8 +309,8 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="section-top text-center">
-                    <h2>Обратная связь</h2>
-                    <p>Те, кто нашел работу и счаслив быть частью компании</p>
+                    <h2>Feedback</h2>
+                    <p>Those who found a job and are happy to be part of the company</p>
                 </div>
             </div>
         </div>
@@ -317,28 +321,28 @@
                         <div class="slide-img employee1">
                             <div class="hover-state">
                                 <div class="hover-text text-center">
-                                    <h3>Андрей Айтишный</h3>
+                                    <h3>Andrey Aitishny</h3>
                                     <h5>Facebook</h5>
                                 </div>
                             </div>
                         </div>
                         <div class="slide-text align-self-center">
                             <i class="fa fa-quote-left"></i>
-                            <p>Благодаря вашему сервису я нашел работу всего за неделю. Рекомендую всем, кто в поиске! Удобный поиск и быстрая связь с работодателями – это то, что нужно.</p>
+                            <p>Thanks to your service, I found a job in just a week. I recommend it to everyone who is looking! Convenient search and quick communication with employers is what you need.</p>
                         </div>
                     </div>
                     <div class="single-slide d-sm-flex">
                         <div class="slide-img employee2">
                             <div class="hover-state">
                                 <div class="hover-text text-center">
-                                    <h3>Максим Волков</h3>
+                                    <h3>Maxim Volkov</h3>
                                     <h5>Twitter</h5>
                                 </div>
                             </div>
                         </div>
                         <div class="slide-text align-self-center">
                             <i class="fa fa-quote-left"></i>
-                            <p>Ваше приложение – просто находка! Легко нашел подходящую вакансию и уже работаю в новой компании. Спасибо за отличный сервис и поддержку!</p>
+                            <p>Your application is a godsend! I easily found a suitable vacancy and am already working in a new company. Thanks for the great service and support!</p>
                         </div>
                     </div>
                     <div class="single-slide d-sm-flex">
@@ -346,14 +350,14 @@
                             <img src="{% static 'images/user2.jpg' %}" alt="placeholder" class="team-img">
                             <div class="hover-state">
                                 <div class="hover-text text-center">
-                                    <h3>Ирина Калашникова</h3>
+                                    <h3>Irina Kalashnikova</h3>
                                     <h5>Twitter</h5>
                                 </div>
                             </div>
                         </div>
                         <div class="slide-text align-self-center">
                             <i class="fa fa-quote-left"></i>
-                            <p>Ваше программное средство помогло мне найти работу моей мечты! Интерфейс интуитивно понятен, а процесс отклика на вакансии – быстрый и удобный. Огромное спасибо за такую замечательную платформу!</p>
+                            <p>Your software helped me find my dream job! The interface is intuitive, and the process of applying for vacancies is fast and convenient. Thank you so much for such a wonderful platform!</p>
                         </div>
                     </div>
                 </div>
@@ -370,7 +374,7 @@
             <div class="col-lg-12">
                 <div class="section-top text-center">
                     <h2>Company latest news</h2>
-                    <p>Наши послдение новости</p>
+                    <p>Our current news</p>
                 </div>
             </div>
         </div>

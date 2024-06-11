@@ -1,11 +1,11 @@
 {% extends 'base.html' %}
 
 {% block vacancy %}
-<h2>Откликнуться на вакансию: {{ vacancy.title }}</h2>
+<h2>Apply for job: {{ vacancy.title }}</h2>
 <form method="post">
     {% csrf_token %}
     {{ form.as_p }}
-    <button type="submit" class="template-btn">Отправить отклик</button>
+    <button type="submit" class="template-btn">Send a response</button>
 </form>
-<a href="{% url 'vacancy_detail' vacancy.id %}">Назад к вакансии</a>
+<a href="{% url 'vacancy_detail' vacancy.id %}">Back to vacancy</a>
 {% endblock vacancy %}
