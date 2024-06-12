@@ -9,6 +9,9 @@
                     <h2>{{ company.name }}</h2>
                 </div>
                 <div class="card-body">
+                    {% if company.logo %}
+                        <img src="{{ company.logo.url }}" alt="{{ company.name }} Logo" style="max-width: 150px;">
+                    {% endif %}
                     <p class="card-text"><strong>About:</strong> {{ company.description }}</p>
                     <p class="card-text"><strong>Location:</strong> {{ company.city }}</p>
                     <p class="card-text"><strong>Founded:</strong> {{ company.founded }}</p>
@@ -21,7 +24,7 @@
                 <div class="card mt-3 mb-4">
                     <div class="card-body">
                         <h4 class="card-title">{{ vacancy.title }}</h4>
-                        <p class="card-text">{{ vacancy.description }}</p>
+                        <p class="card-text">{{ vacancy.description|truncatewords:30 }}</p>
                         <p class="card-text"><strong>Salary:</strong> {{ vacancy.salary }}</p>
                         <p class="card-text"><strong>City:</strong> {{ vacancy.city }}</p>
                         <a href="{% url 'vacancy_detail' vacancy.id %}" class="btn btn-primary">View Details</a>
