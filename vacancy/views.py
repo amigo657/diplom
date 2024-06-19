@@ -76,7 +76,7 @@ def apply_for_vacancy(request, vacancy_id):
             user = request.user
             user.num_applications += 1
             user.apply_for_vacancy(vacancy)
-            user.apply_for_multiple_vacancies()
+            user.apply_for_multiple_vacancies(user.num_applications)
             user.save()
             return redirect('vacancy_detail', vacancy_id=vacancy.id)
     else:

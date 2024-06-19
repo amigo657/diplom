@@ -1,11 +1,25 @@
 {% extends 'base.html' %}
 
 {% block vacancy %}
-<h2>Apply for job: {{ vacancy.title }}</h2>
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit" class="template-btn">Send a response</button>
-</form>
-<a href="{% url 'vacancy_detail' vacancy.id %}">Back to vacancy</a>
+<div class="container mt-5 mb-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header" style="background-color: #ffffff;">
+                    <h2>Apply for job: {{ vacancy.title }}</h2>
+                </div>
+                <div class="card-body">
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            {{ form.as_p }}
+                        </div>
+                        <button type="submit" class="btn" style="background-color: #ff9902; color: #ffffff;">Send a response</button>
+                    </form>
+                    <a href="{% url 'vacancy_detail' vacancy.id %}" class="btn" style="background-color: #6c757d; color: #ffffff; margin-top: 10px;">Back to vacancy</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock vacancy %}
