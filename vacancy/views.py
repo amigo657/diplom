@@ -4,11 +4,13 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseForbidden
 from django.core.exceptions import PermissionDenied
 from .models import Vacancy, Response
+from accounts.models import User
 from companys.models import Company
 from .forms import VacancyForm, ResponseForm
 from django.db.models import Q
 from django.contrib.auth import get_user_model
 from django.views.generic import DetailView
+from django.contrib import messages
 
 
 # Функция для фильтрации вакансий
@@ -122,11 +124,39 @@ def recruiter_responses(request):
     if not request.user.is_recruiter:
         return redirect('vacancy_list')
     
+    status = request.GET.get('status', 'all')
     if request.user.is_superuser:
         responses = Response.objects.all()
     else:
         responses = Response.objects.filter(vacancy__recruiter=request.user)
-    return render(request, 'recruiter_responses.html', {'responses': responses})
+    if status == 'approved':
+        responses = responses.filter(is_approved=True)
+    elif status == 'canceled':
+        responses = responses.filter(is_approved=False)  # Предполагаем, что отклоненные - это is_approved=False
+    elif status == 'all':
+        responses = responses  # Все отклики
+    
+    context = {
+        'responses': responses,
+        'current_status': status
+    }
+    return render(request, 'recruiter_responses.html', context)
+
+# Отображение деталей профиля
+@login_required
+def user_profile_detail(request, pk):
+    user_profile = get_object_or_404(User, id=pk)
+    response = get_object_or_404(Response, user=user_profile, vacancy__recruiter=request.user)
+    return render(request, 'user_profile_detail.html', {'user_profile': user_profile, 'response': response})
+
+# Одобрить кандидата
+@login_required
+def approve_candidate(request, response_id):
+    response = get_object_or_404(Response, id=response_id)
+    response.is_approved = True
+    response.save()
+    messages.success(request, f"{response.user.username} has been approved for the vacancy.")
+    return redirect('user_profile_detail', pk=response.user.id)
 
 
 User = get_user_model()

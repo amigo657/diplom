@@ -5,6 +5,15 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <h2>Responses to Your Vacancies</h2>
+
+            <!-- Фильтр кнопок -->
+            <div class="btn-group mb-3" role="group">
+                <a href="?status=all" class="btn btn-primary {% if current_status == 'all' %}active{% endif %}">All</a>
+                <a href="?status=approved" class="btn btn-success {% if current_status == 'approved' %}active{% endif %}">Approved</a>
+                <a href="?status=canceled" class="btn btn-danger {% if current_status == 'canceled' %}active{% endif %}">Canceled</a>
+            </div>
+
+            <!-- Список откликов -->
             {% for response in responses %}
                 <div class="card mt-3">
                     <div class="card-body d-flex justify-content-between">
@@ -14,6 +23,11 @@
                             <p class="card-text"><strong>Application Date:</strong> {{ response.created_at }}</p>
                             <p class="card-text"><strong>Message:</strong> {{ response.message }}</p>
                             <a href="{% url 'user_profile_detail' response.user.id %}" class="btn btn-primary">View Applicant Profile</a>
+                            {% if response.is_approved %}
+                                <p class="text-success mt-3">This candidate has been approved.</p>
+                            {% else %}
+                                <p class="text-danger mt-3">This candidate has been canceled.</p>
+                            {% endif %}
                         </div>
                         {% if response.user.photo %}
                             <div>

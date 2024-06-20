@@ -20,6 +20,7 @@ class Response(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='responses')
     vacancy = models.ForeignKey(Vacancy, on_delete=models.CASCADE, related_name='responses')
     created_at = models.DateTimeField(auto_now_add=True)
+    is_approved = models.BooleanField(default=False)
 
     def str(self):
         return f"{self.user.username} - {self.vacancy.title}"
