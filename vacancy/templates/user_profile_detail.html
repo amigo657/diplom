@@ -20,10 +20,13 @@
                     <p><strong>City:</strong> {{ user_profile.city }}</p>
                     <p><strong>Privilege:</strong> {{ user_profile.privilege.name }}</p>
 
-                    {% if response.is_approved %}
+                    {% if response.status == 'approved' %}
                         <p class="text-success mt-3">This candidate has been approved.</p>
+                    {% elif response.status == 'canceled' %}
+                        <p class="text-danger mt-3">This candidate has been canceled.</p>
                     {% else %}
                         <a href="{% url 'approve_candidate' response.id %}" class="btn btn-success">Approve Candidate</a>
+                        <a href="{% url 'cancel_candidate' response.id %}" class="btn btn-danger">Cancel Candidate</a>
                     {% endif %}
                     <a href="{% url 'recruiter_responses' %}" class="btn btn-secondary">Back to Responses</a>
                 </div>

@@ -124,17 +124,20 @@ def recruiter_responses(request):
     if not request.user.is_recruiter:
         return redirect('vacancy_list')
     
-    status = request.GET.get('status', 'all')
+    status = request.GET.get('status', 'pending')
     if request.user.is_superuser:
         responses = Response.objects.all()
     else:
         responses = Response.objects.filter(vacancy__recruiter=request.user)
+    
     if status == 'approved':
-        responses = responses.filter(is_approved=True)
+        responses = responses.filter(status='approved')
     elif status == 'canceled':
-        responses = responses.filter(is_approved=False)  # Предполагаем, что отклоненные - это is_approved=False
+        responses = responses.filter(status='canceled')
     elif status == 'all':
-        responses = responses  # Все отклики
+        responses = responses
+    elif status == 'pending':
+        responses = responses.filter(status='pending')
     
     context = {
         'responses': responses,
@@ -144,9 +147,9 @@ def recruiter_responses(request):
 
 # Отображение деталей профиля
 @login_required
-def user_profile_detail(request, pk):
+def user_profile_detail(request, pk, response_id):
     user_profile = get_object_or_404(User, id=pk)
-    response = get_object_or_404(Response, user=user_profile, vacancy__recruiter=request.user)
+    response = get_object_or_404(Response, id=response_id, user=user_profile, vacancy__recruiter=request.user)
     return render(request, 'user_profile_detail.html', {'user_profile': user_profile, 'response': response})
 
 # Одобрить кандидата
@@ -154,9 +157,18 @@ def user_profile_detail(request, pk):
 def approve_candidate(request, response_id):
     response = get_object_or_404(Response, id=response_id)
     response.is_approved = True
+    response.status = 'approved'
     response.save()
     messages.success(request, f"{response.user.username} has been approved for the vacancy.")
-    return redirect('user_profile_detail', pk=response.user.id)
+    return redirect('recruiter_responses')
+
+# Одобрить кандидата
+@login_required
+def cancel_candidate(request, response_id):
+    response = get_object_or_404(Response, id=response_id)
+    response.status = 'canceled'
+    response.save()
+    return redirect('recruiter_responses')
 
 
 User = get_user_model()

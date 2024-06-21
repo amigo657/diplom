@@ -17,10 +17,17 @@ class Vacancy(models.Model):
     
     
 class Response(models.Model):
+    STATUS_CHOICES = [
+        ('pending', 'Pending'),
+        ('approved', 'Approved'),
+        ('canceled', 'Canceled'),
+    ]
+
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='responses')
     vacancy = models.ForeignKey(Vacancy, on_delete=models.CASCADE, related_name='responses')
     created_at = models.DateTimeField(auto_now_add=True)
     is_approved = models.BooleanField(default=False)
+    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='pending')
 
     def str(self):
         return f"{self.user.username} - {self.vacancy.title}"
