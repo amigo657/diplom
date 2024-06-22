@@ -7,8 +7,10 @@ from vacancy.models import Vacancy
 import random
 
 def privilegy(request):
-    privilegys = Privilege.objects.all()
-    return render(request, "privilegy_page.html", {'privilegys': privilegys})
+    privileges = Privilege.objects.all()
+    for privilege in privileges:
+        privilege.description_list = privilege.description.split(";")
+    return render(request, "privilegy_page.html", {'privileges': privileges})
 
 @login_required
 def buy_privilege(request, privilege_id):
